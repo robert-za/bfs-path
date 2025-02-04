@@ -1,19 +1,7 @@
-import random
+
 from collections import deque
 
-
-GRID_SIZE = 10
-
-
-class LocationCoordinates:
-    def __init__(self, name: str, max_x: int = GRID_SIZE, max_y: int = GRID_SIZE) -> None:
-        self.name = name
-        self.max_x = max_x
-        self.max_y = max_y
-        self.coordinates = (int(random.random() * self.max_x), int(random.random() * self.max_y))
-
-    def __str__(self) -> str:
-        return f"Generated Coordinates for {self.name}: {self.coordinates}"
+from src.location_coordinates import LocationCoordinates
 
 
 class BreadthFirstSearch:
@@ -49,15 +37,3 @@ class BreadthFirstSearch:
             path.append(current_location)
             current_location = parent[current_location]
         return path[::-1]
-
-for i in range(1):
-    first_location = LocationCoordinates("A")
-    second_location = LocationCoordinates("B")
-    print(first_location)
-    print(second_location)
-
-    shortest_path = BreadthFirstSearch.find_shortest_path(first_location, second_location)
-    if shortest_path:
-        print("Shortest Path:", shortest_path)
-    else:
-        print("No path found.")  # it should not happen in closed system
