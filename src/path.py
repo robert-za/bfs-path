@@ -1,12 +1,14 @@
 from typing import List, Tuple
 
+from location import Location
 
-class Path:
+
+class PathObject:
     def __init__(self) -> None:
         self.steps = []
 
-    def append_step(self, step: Tuple[int, int]) -> None:
-        self.steps.append(step)
+    def append_location(self, location: Location) -> None:
+        self.steps.append(location)
 
-    def inverse_path(self) -> List[Tuple[int, int]]:
-        return self.steps[::-1]
+    def inverse_path(self) -> None:
+        self.steps =  self.steps[::-1]

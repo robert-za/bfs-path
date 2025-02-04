@@ -1,17 +1,18 @@
 import pytest
 
+from src.path import PathObject
 from src.breadth_first_search import BreadthFirstSearch
-from src.location_coordinates import LocationCoordinates
+from src.location import Location, RandomLocation
 
 
 class TestBreadthFirstSearch:
     @pytest.fixture
-    def location_a(self) -> LocationCoordinates:
-        return LocationCoordinates("A")
+    def location_a(self) -> Location:
+        return Location("A")
 
     @pytest.fixture
-    def location_b(self) -> LocationCoordinates:
-        return LocationCoordinates("B")
+    def location_b(self) -> Location:
+        return Location("B")
 
     def test_max_distance(self, location_a, location_b) -> None:
         # given
@@ -22,10 +23,11 @@ class TestBreadthFirstSearch:
         path = BreadthFirstSearch.find_shortest_path(location_a, location_b)
 
         # then
-        assert path == [
-            (0, 0), (1, 0), (2, 0), (3, 0), (4, 0), (5, 0), (6, 0), (7, 0), (8, 0), (9, 0),
-            (9, 1), (9, 2), (9, 3), (9, 4), (9, 5), (9, 6), (9, 7), (9, 8), (9, 9)
-        ]
+
+        assert isinstance(path, PathObject)
+        assert len(path.steps) == 19
+        assert path.steps[0] == location_a
+        assert path.steps[-1].coordinates == location_b.coordinates
 
     def test_overlying_locations(self, location_a, location_b) -> None:
         # given
@@ -36,4 +38,19 @@ class TestBreadthFirstSearch:
         path = BreadthFirstSearch.find_shortest_path(location_a, location_b)
 
         # then
-        assert path == [(0, 0)]
+        assert len(path.steps) == 1
+        assert path.steps[0] == location_a
+
+    def test_random_cases(self) -> None:
+        # TODO 2025-02-04: Remove this test later
+        for i in range(100):
+            # given
+            location_a = RandomLocation("A")
+            location_b = RandomLocation("B")
+
+            # when
+            path = BreadthFirstSearch.find_shortest_path(location_a, location_b)
+
+            # then
+            assert path.steps[0] == location_a
+            assert path.steps[-1].coordinates == location_b.coordinates
