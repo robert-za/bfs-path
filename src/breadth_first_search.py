@@ -2,17 +2,17 @@
 from collections import deque
 
 from src.location_coordinates import LocationCoordinates
+from src.path import Path
+from src.settings import POSSIBLE_DIRECTIONS
 
 
 class BreadthFirstSearch:
-    POSSIBLE_DIRECTIONS = [(-1, 0), (1, 0), (0, -1), (0, 1)]
-
     @classmethod
     def find_shortest_path(
             cls,
             start: LocationCoordinates,
             finish: LocationCoordinates
-    ) -> list[tuple[int, int] | None] | None:
+    ) -> list[tuple[int, int]] | None:
         queue = deque([start.coordinates])
         parent = {tuple(start.coordinates): None}
 
@@ -20,9 +20,9 @@ class BreadthFirstSearch:
             current_location = queue.popleft()
 
             if current_location == finish.coordinates:
-                return cls._reconstruct_path(current_location, parent)
+                return cls._reconstruct_path(current_location, parent).inverse_path()
 
-            for dx, dy in cls.POSSIBLE_DIRECTIONS:
+            for dx, dy in POSSIBLE_DIRECTIONS:
                 neighbor = (current_location[0] + dx, current_location[1] + dy)
 
                 if 0 <= neighbor[0] < start.max_x + 1 and 0 <= neighbor[1] < finish.max_y + 1 and tuple(neighbor) not in parent:
@@ -35,9 +35,9 @@ class BreadthFirstSearch:
     def _reconstruct_path(
             current_location: tuple[int, int],
             parent: dict[tuple[int, int], tuple[int, int] | None]
-    ) -> list[tuple[int, int] | None]:
-        path = []
+    ) -> Path | None:
+        path = Path()
         while current_location:
-            path.append(current_location)
+            path.append_step(current_location)
             current_location = parent[current_location]
-        return path[::-1]
+        return path

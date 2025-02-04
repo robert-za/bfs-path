@@ -1,1 +1,2 @@
 GRID_SIZE = 10
+POSSIBLE_DIRECTIONS = [(-1, 0), (1, 0), (0, -1), (0, 1)]
