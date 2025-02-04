@@ -8,7 +8,11 @@ class BreadthFirstSearch:
     POSSIBLE_DIRECTIONS = [(-1, 0), (1, 0), (0, -1), (0, 1)]
 
     @classmethod
-    def find_shortest_path(cls, start: LocationCoordinates, finish: LocationCoordinates):
+    def find_shortest_path(
+            cls,
+            start: LocationCoordinates,
+            finish: LocationCoordinates
+    ) -> list[tuple[int, int] | None] | None:
         queue = deque([start.coordinates])
         parent = {tuple(start.coordinates): None}
 
