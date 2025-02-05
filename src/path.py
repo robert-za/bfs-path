@@ -1,9 +1,7 @@
-from typing import List, Tuple
-
 from location import Location
 
 
-class PathObject:
+class Path:
     def __init__(self) -> None:
         self.steps = []
 

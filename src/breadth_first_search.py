@@ -2,13 +2,13 @@ from collections import deque
 from typing import Dict
 
 from src.location import Location
-from src.path import PathObject
+from src.path import Path
 from src.settings import POSSIBLE_DIRECTIONS
 
 
 class BreadthFirstSearch:
     @classmethod
-    def find_shortest_path(cls, start: Location, finish: Location) -> PathObject | None:
+    def find_shortest_path(cls, start: Location, finish: Location) -> Path | None:
         queue = deque([start])
         parent = {start: None}
 
@@ -19,6 +19,7 @@ class BreadthFirstSearch:
                 return cls._construct_path(current_location, parent)
 
             for dx, dy in POSSIBLE_DIRECTIONS:
+                # TODO 2025-02-05: This seems inefficient if the if-condition below not satisfied; it could be reversed
                 neighbor = Location()
                 # TODO 2025-02-04: Implement x, y for coordinates obj to call by names and not indexes
                 neighbor.coordinates = (current_location.coordinates[0] + dx, current_location.coordinates[1] + dy)
@@ -30,8 +31,8 @@ class BreadthFirstSearch:
         return None
 
     @staticmethod
-    def _construct_path(current_location: Location | None, parent: Dict[Location, Location]) -> PathObject | None:
-        path = PathObject()
+    def _construct_path(current_location: Location | None, parent: Dict[Location, Location]) -> Path | None:
+        path = Path()
         while current_location:
             path.append_location(current_location)
             current_location = parent[current_location]

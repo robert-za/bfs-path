@@ -4,7 +4,7 @@ from unittest.mock import patch
 import pytest
 
 from location import Location
-from path import PathObject
+from path import Path
 
 
 @pytest.fixture(autouse=True)
@@ -13,10 +13,10 @@ def mock_token_hex():
         yield
 
 
-class TestPathObject:
+class TestPath:
     def test_append_location(self) -> None:
         # given
-        path = PathObject()
+        path = Path()
         location = Location()
 
         # when
@@ -27,7 +27,7 @@ class TestPathObject:
 
     def test_inverse_path(self) -> None:
         # given
-        path = PathObject()
+        path = Path()
         location_a = Location()
         location_a.coordinates = (0, 0)
         location_b = Location()

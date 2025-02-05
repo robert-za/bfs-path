@@ -1,6 +1,6 @@
 import pytest
 
-from src.path import PathObject
+from src.path import Path
 from src.breadth_first_search import BreadthFirstSearch
 from src.location import Location, RandomLocation
 
@@ -24,7 +24,7 @@ class TestBreadthFirstSearch:
 
         # then
 
-        assert isinstance(path, PathObject)
+        assert isinstance(path, Path)
         assert len(path.steps) == 19
         assert path.steps[0] == location_a
         assert path.steps[-1].coordinates == location_b.coordinates
