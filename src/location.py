@@ -13,7 +13,13 @@ class Location:
         self._coordinates: Tuple[int, int] | None = None
 
     def __str__(self) -> str:
-        return f"Generated Coordinates for {self._name}: {self._coordinates}"
+        return f"{self._name}: {self._coordinates}"
+
+    def __hash__(self):
+        return hash(self.coordinates)
+
+    def __eq__(self, other):
+        return isinstance(other, Location) and self.coordinates == other.coordinates
 
     @property
     def coordinates(self) -> Tuple[int, int]:

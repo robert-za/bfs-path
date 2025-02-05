@@ -44,4 +44,4 @@ class BreadthFirstSearch:
 
     @staticmethod
     def _is_neighbour_visited(node: Location, parent: Dict[Location, Location | None]) -> bool:
-        return node.coordinates not in [location.coordinates for location in parent]
+        return node not in parent

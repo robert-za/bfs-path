@@ -21,7 +21,7 @@ class TestLocation:
         location = Location()
 
         # then
-        assert str(location) == "Generated Coordinates for abcdef: None"
+        assert str(location) == "abcdef: None"
 
     def test_string_repr_when_coords_are_not_none(self) -> None:
         # given
@@ -29,4 +29,4 @@ class TestLocation:
         location.coordinates = (0, 0)
 
         # then
-        assert str(location) == "Generated Coordinates for abcdef: (0, 0)"
+        assert str(location) == "abcdef: (0, 0)"
